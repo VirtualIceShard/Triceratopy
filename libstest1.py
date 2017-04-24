@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import triceratopy
-
+class simpleob(object):
+    pass
 @triceratopy.capsule("wow")
 def capsule1 (name=None, capsule=None, exports=None):
     exports.sum = lambda x,y: x + y
@@ -16,9 +17,15 @@ saySmth(34,"nop")
 saySmth(23, "uhu", add="hah", rlly="rly?")
 simple_dict = {}
 triceratopy.set_dict_index(simple_dict, ("wow", "much", "doge"), 3)
-triceratopy.set_dict_index(simple_dict, ["wow", "much", "doge2"], 99)
+triceratopy.set_dict_index(simple_dict, ["wow", "much", "doge2"], "99")
 triceratopy.set_dict_index(simple_dict, ["wow", "much", "doge3", "doge4","doge5"], lambda: print(4))
 triceratopy.set_dict_index(simple_dict, ["wow", "much", "doge3", "doge4","doge6"], lambda x: x + 2)
 print(triceratopy.get_dict_index(simple_dict, ["wow"]))
 print(triceratopy.get_dict_index(simple_dict, ("wow", "much", "doge3", "doge4","doge6"))(5))
 print(simple_dict)
+so = simpleob()
+triceratopy.set_obj_index(so, ("wow", "much", "dogee"), 3)
+triceratopy.set_obj_index(so, ("wow", "much", "dogee2"), 30)
+print(triceratopy.get_obj_index(so, ("wow", "much", "dogee2")))
+print(so.wow.much.dogee)
+print(so.wow.much.dogee2)

@@ -94,3 +94,40 @@ def set_dict_index (objref, index, value, recursive=False, rlist=[]):
             return subret
         else:
             return value
+def get_obj_index (objref, index, recursive=False, show_has_returned = False):
+    index = list(index)
+    try:
+        if len(index) > 0:
+            return get_obj_index(objref.__dict__[index[0]], index[1:], show_has_returned = show_has_returned)
+        else:
+            if show_has_returned:
+                return (objref, True)
+            else:
+                return objref
+    except KeyError:
+        if show_has_returned:
+            return (None, False)
+        else:
+            return None
+@simplelog
+def set_obj_index (objref, index, value, recursive=False, rlist=[]):
+    index = list(index)
+    if not recursive:
+        obret = objref
+        rlist = []
+        rlist.append(index[0])
+        obret.__dict__[index [0]] = set_obj_index (objref, index [1:], value, recursive=True, rlist=rlist)
+        return obret
+    else:
+        if len (index) > 0:
+            if get_obj_index (objref, rlist, show_has_returned=True)[1]:
+                subret = get_obj_index (objref, rlist, show_has_returned=True)[0]
+            else:
+                subret = obj()
+            rlist.append(index[0])
+            subret.__dict__ [index [0]] = set_obj_index (objref, index [1:], value, recursive=True, rlist=rlist)
+            return subret
+        else:
+            return value
+class obj(object):
+    pass
