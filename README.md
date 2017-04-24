@@ -1,3 +1,4 @@
+
 # Triceratopy
 _Currently under development_
 Triceratopy is a python utilities module to make easier and simplier working with dictionaries, or even using capsules(_see capsules_), a way of using modules inside modules. 
