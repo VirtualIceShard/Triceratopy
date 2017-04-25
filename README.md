@@ -1,5 +1,5 @@
 # Triceratopy
-_Currently under development_(*version 0.0.1*)
+_Currently under development_(*version 0.0.1*) &#10;&#13;
 Triceratopy is a collection of utilities, that includes a variety of decorators and functions to make some tasks easier or even to organize your code better. Triceratopy includes:
 - Function decorator utilities(simple logs, multiple calls in one line, multiple calls sequence)
 - Objects and decorators setters and getters using an index thats automatically do the wor of creating sub-dicionaries and objects
