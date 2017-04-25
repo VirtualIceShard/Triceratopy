@@ -1,6 +1,11 @@
 # Triceratopy
+<<<<<<< HEAD
 _Currently under development_(*version 0.0.1*)
 &nbsp;
+=======
+_Currently under development_(*version 0.0.1*) 
+##### &nbsp;
+>>>>>>> origin/master
 Triceratopy is a collection of utilities, that includes a variety of decorators and functions to make some tasks easier or even to organize your code better. Triceratopy includes:
 - Function decorator utilities(simple logs, multiple calls in one line, multiple calls sequence)
 - Objects and decorators setters and getters using an index thats automatically do the wor of creating sub-dicionaries and objects
@@ -74,8 +79,13 @@ The code above doesn't use return by the fact that the last call returns a tuple
 ### Utilities
 #### Dicts and objects setters and getters
 **Dicts setters and getters**
+<<<<<<< HEAD
 Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index)`.
 ##### Examples:
+=======
+Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index`.
+##### Examples: 
+>>>>>>> origin/master
     my_dict = {}
     triceratopy.utils.set_dict_index(my_dict, ('key1', 'keyr2', 'key3', 'a value'))
     #my_dict {'key1': {'key2: {'key3: 'a value'}}}
