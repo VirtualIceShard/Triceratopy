@@ -75,7 +75,7 @@ The code above doesn't use return by the fact that the last call returns a tuple
 #### Dicts and objects setters and getters
 **Dicts setters and getters**
 Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index`.
-##### Examples:
+##### Examples: 
     my_dict = {}
     triceratopy.utils.set_dict_index(my_dict, ("key1","keyr2","key3", "a value"))
     #my_dict {'key1': {'key2:{'key3: "a value"}}}
