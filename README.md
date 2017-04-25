@@ -29,4 +29,6 @@ This can be useful if you need to store the values in a path-like structure (exa
 **Objects setters and getters**
 Triceratopy also includes the object equivalent of the methods above, they are `set_obj_index` and `get_obj_index`, and work at the same way as the methods shown above, except for the fact that getting a key that contains an object as value will return that object, and not a sub-dictionary.
 
+>wow
+>rly
 
