@@ -1,8 +1,6 @@
 # Triceratopy
-<<<<<<< HEAD
 _Currently under development_(*version 0.0.1*)
 &nbsp;
-=======
 _Currently under development_(*version 0.0.1*) 
 ##### &nbsp;
 >>>>>>> origin/master
@@ -79,13 +77,10 @@ The code above doesn't use return by the fact that the last call returns a tuple
 ### Utilities
 #### Dicts and objects setters and getters
 **Dicts setters and getters**
-<<<<<<< HEAD
 Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index)`.
 ##### Examples:
-=======
 Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index`.
 ##### Examples: 
->>>>>>> origin/master
     my_dict = {}
     triceratopy.utils.set_dict_index(my_dict, ('key1', 'keyr2', 'key3', 'a value'))
     #my_dict {'key1': {'key2: {'key3: 'a value'}}}
@@ -109,4 +104,5 @@ This can be useful if you need to store the values in a path-like structure (exa
 **Objects setters and getters**
 Triceratopy also includes the object equivalent of the methods above, they are `set_obj_index` and `get_obj_index`, and work at the same way as the methods shown above, except for the fact that getting a key that contains an object as value will return that object, and not a sub-dictionary. They work exactly like the dict methods.
 
+ 
 
