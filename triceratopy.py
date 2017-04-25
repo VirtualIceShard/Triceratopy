@@ -1,26 +1,3 @@
-import time
-def simplelog(f):
-    def funcwrapper(*args, **kargs):
-        nArgs = args
-        kArgs = kargs
-        argsStr = []
-        kargsStr = []
-        willHaveComma = ""
-        if len(args):
-            for i in nArgs:
-                argsStr.append(str(i))  
-        if len (kArgs):
-            willHaveComma = ","
-            for k, v in kArgs.items ():
-                kargsStr.append("%s=%s" % (k, v.__repr__()))
-        print ("[%02i:%02i]Calling %s" %(time.localtime ().tm_hour, time.localtime ().tm_min,\
-        str(f.__name__ + "(" + ",".join(argsStr) + willHaveComma + ",".join(kargsStr)) + ")"))
-        print("[%02i:%02i]Started running" %(time.localtime ().tm_hour, time.localtime ().tm_min))
-        toret = f (*args, **kargs)
-        print("[%02i:%02i]Ended" %(time.localtime ().tm_hour, time.localtime ().tm_min))
-        print ("[%02i:%02i]Returned: %s" % (time.localtime ().tm_hour, time.localtime ().tm_min, toret.__repr__()))
-        return toret
-    return funcwrapper
 #!/usr/bin/env python3
 
 ''' 
@@ -38,7 +15,7 @@ def simplelog(f):
  See the License for the specific language governing permissions and
  limitations under the License.
 '''
-
+import time
 def capsule(name, description="No description provided",\
       version="0.0.1"):
     def outer_wrapper (f):
@@ -59,75 +36,143 @@ def capsule(name, description="No description provided",\
             return f.capsule.exports
         return inner_wrapper
     return outer_wrapper
-def get_dict_index (objref, index, recursive=False, show_has_returned = False):
-    index = list(index)
-    try:
-        if len(index) > 0:
-            return get_dict_index(objref[index[0]], index[1:], show_has_returned = show_has_returned)
-        else:
-            if show_has_returned:
-                return (objref, True)
-            else:
-                return objref
-    except KeyError:
-        if show_has_returned:
-            return (None, False)
-        else:
-            return None
-
-def set_dict_index (objref, index, value, recursive=False, rlist=[]):
-    index = list(index)
-    if not recursive:
-        obret = objref
-        rlist = []
-        rlist.append(index[0])
-        obret[index [0]] = set_dict_index (objref, index [1:], value, recursive=True, rlist=rlist)
-        return obret
-    else:
-        if len (index) > 0:
-            if get_dict_index (objref, rlist, show_has_returned=True)[1]:
-                subret = get_dict_index (objref, rlist, show_has_returned=True)[0]
-            else:
-                subret = {}
-            rlist.append(index[0])
-            subret [index [0]] = set_dict_index (objref, index [1:], value, recursive=True, rlist=rlist)
-            return subret
-        else:
-            return value
-def get_obj_index (objref, index, recursive=False, show_has_returned = False):
-    index = list(index)
-    try:
-        if len(index) > 0:
-            return get_obj_index(objref.__dict__[index[0]], index[1:], show_has_returned = show_has_returned)
-        else:
-            if show_has_returned:
-                return (objref, True)
-            else:
-                return objref
-    except KeyError:
-        if show_has_returned:
-            return (None, False)
-        else:
-            return None
-@simplelog
-def set_obj_index (objref, index, value, recursive=False, rlist=[]):
-    index = list(index)
-    if not recursive:
-        obret = objref
-        rlist = []
-        rlist.append(index[0])
-        obret.__dict__[index [0]] = set_obj_index (objref, index [1:], value, recursive=True, rlist=rlist)
-        return obret
-    else:
-        if len (index) > 0:
-            if get_obj_index (objref, rlist, show_has_returned=True)[1]:
-                subret = get_obj_index (objref, rlist, show_has_returned=True)[0]
-            else:
-                subret = obj()
-            rlist.append(index[0])
-            subret.__dict__ [index [0]] = set_obj_index (objref, index [1:], value, recursive=True, rlist=rlist)
-            return subret
-        else:
-            return value
 class obj(object):
     pass
+@capsule("functions", description="a collection of function decorators utils", version="0.0.1")
+def functions_capsule(name=None, capsule=None, exports=None):
+    def simple_log(f):
+        def funcwrapper(*args, **kargs):
+            nArgs = args
+            kArgs = kargs
+            argsStr = []
+            kargsStr = []
+            willHaveComma = ""
+            if len(args):
+                for i in nArgs:
+                    argsStr.append(str(i))  
+            if len (kArgs):
+                willHaveComma = ","
+                for k, v in kArgs.items ():
+                    kargsStr.append("%s=%s" % (k, v.__repr__()))
+            print ("[%02i:%02i]Calling %s" %(time.localtime ().tm_hour, time.localtime ().tm_min,\
+            str(f.__name__ + "(" + ",".join(argsStr) + willHaveComma + ",".join(kargsStr)) + ")"))
+            print("[%02i:%02i]Started running" %(time.localtime ().tm_hour, time.localtime ().tm_min))
+            toret = f (*args, **kargs)
+            print("[%02i:%02i]Ended" %(time.localtime ().tm_hour, time.localtime ().tm_min))
+            print ("[%02i:%02i]Returned: %s" % (time.localtime ().tm_hour, time.localtime ().tm_min, toret.__repr__()))
+            return toret
+        return funcwrapper
+    
+    def multiple_calls(f):
+        def wrapper(*args, **kargs):
+            func = f
+            def ff(*args1, **kargs1):
+                ff.__return__ = list(ff.__return__)
+                ff.__return__.append(func(*args1, **kargs1))
+                ff.__return__ = tuple(ff.__return__)
+                return ff
+            ff.__return__ = ()
+            ff(*args, **kargs)
+            return ff
+        return wrapper
+    def multiple_calls_list(*f_args):
+        def outer_wrapper(f):
+            def inner_wrapper(*args, **kargs):
+                func = f
+                def ff(*args1, **kargs1):
+                    ff.__return__ = list(ff.__return__)
+                    ff.__return__.append(ff.__nextf__[0](*args1, **kargs1))
+                    ff.__return__ = tuple(ff.__return__)
+                    if len(ff.__nextf__) > 1:
+                        ff.__nextf__.pop(0)
+                    else:
+                        return ff.__return__
+                    return ff
+                ff.__nextf__ =  [f] + list(f_args)
+                ff.__return__ = ()
+                ff(*args, **kargs)
+                return ff
+            return inner_wrapper
+        return outer_wrapper
+    exports.simple_log = simple_log
+    exports.multiple_calls = multiple_calls
+    exports.multiple_calls_list = multiple_calls_list
+@capsule("utils", description="utilities to make easier the task of programming", version="0.0.1")
+def utils_capsule(name=None, capsule=None, exports=None):   
+    def set_obj_index (objref, index, value, recursive=False, rlist=[]):
+        index = list(index)
+        if not recursive:
+            obret = objref
+            rlist = []
+            rlist.append(index[0])
+            obret.__dict__[index [0]] = set_obj_index (objref, index [1:], value, recursive=True, rlist=rlist)
+            return obret
+        else:
+            if len (index) > 0:
+                if get_obj_index (objref, rlist, show_has_returned=True)[1]:
+                    subret = get_obj_index (objref, rlist, show_has_returned=True)[0]
+                else:
+                    subret = obj()
+                rlist.append(index[0])
+                subret.__dict__ [index [0]] = set_obj_index (objref, index [1:], value, recursive=True, rlist=rlist)
+                return subret
+            else:
+                return value
+    def get_obj_index (objref, index, recursive=False, show_has_returned = False):
+        index = list(index)
+        try:
+            if len(index) > 0:
+                return get_obj_index(objref.__dict__[index[0]], index[1:], show_has_returned = show_has_returned)
+            else:
+                if show_has_returned:
+                    return (objref, True)
+                else:
+                    return objref
+        except KeyError:
+            if show_has_returned:
+                return (None, False)
+            else:
+                return None
+    
+    def set_dict_index (objref, index, value, recursive=False, rlist=[]):
+        index = list(index)
+        if not recursive:
+            obret = objref
+            rlist = []
+            rlist.append(index[0])
+            obret[index [0]] = set_dict_index (objref, index [1:], value, recursive=True, rlist=rlist)
+            return obret
+        else:
+            if len (index) > 0:
+                if get_dict_index (objref, rlist, show_has_returned=True)[1]:
+                    subret = get_dict_index (objref, rlist, show_has_returned=True)[0]
+                else:
+                    subret = {}
+                rlist.append(index[0])
+                subret [index [0]] = set_dict_index (objref, index [1:], value, recursive=True, rlist=rlist)
+                return subret
+            else:
+                return value
+    def get_dict_index (objref, index, recursive=False, show_has_returned = False):
+        index = list(index)
+        try:
+            if len(index) > 0:
+                return get_dict_index(objref[index[0]], index[1:], show_has_returned = show_has_returned)
+            else:
+                if show_has_returned:
+                    return (objref, True)
+                else:
+                    return objref
+        except KeyError:
+            if show_has_returned:
+                return (None, False)
+            else:
+                return None
+
+    exports.get_obj_index = get_obj_index
+    exports.set_obj_index = set_obj_index
+    exports.get_dict_index = get_dict_index
+    exports.set_dict_index = set_dict_index
+    
+functions = functions_capsule()
+utils = utils_capsule()
