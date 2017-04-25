@@ -1,5 +1,6 @@
 # Triceratopy
-_Currently under development_(*version 0.0.1*) &#10;&#13;
+_Currently under development_(*version 0.0.1*)
+&nbsp;
 Triceratopy is a collection of utilities, that includes a variety of decorators and functions to make some tasks easier or even to organize your code better. Triceratopy includes:
 - Function decorator utilities(simple logs, multiple calls in one line, multiple calls sequence)
 - Objects and decorators setters and getters using an index thats automatically do the wor of creating sub-dicionaries and objects
@@ -73,29 +74,29 @@ The code above doesn't use return by the fact that the last call returns a tuple
 ### Utilities
 #### Dicts and objects setters and getters
 **Dicts setters and getters**
-Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index`.
+Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index)`.
 ##### Examples:
     my_dict = {}
-    triceratopy.utils.set_dict_index(my_dict, ("key1","keyr2","key3", "a value"))
-    #my_dict {'key1': {'key2:{'key3: "a value"}}}
+    triceratopy.utils.set_dict_index(my_dict, ('key1', 'keyr2', 'key3', 'a value'))
+    #my_dict {'key1': {'key2: {'key3: 'a value'}}}
     
-    triceratopy.utils.set_dict_index(my_dict, ("key1","keyr2","key4", "another value")) 
-    #would make {'key1': {'key2:{'key3: "a value", 'key4': "another value"}}}
+    triceratopy.utils.set_dict_index(my_dict, ('key1', 'keyr2', 'key4', 'another value')) 
+    #would make {'key1': {'key2': {'key3': "a value", 'key4': "another value"}}}
     
-This can be useful if you need to store the values in a path-like structure (example: you need to store in the `("/", "projects", "triceratopy")` the object`triceratopy_webpage` object. The other utility is the dictionary getter, that can get the dicionary value or sub-dictionary from the specified index. Example:
+This can be useful if you need to store the values in a path-like structure (example: you need to store in the `("/", "projects", "triceratopy")` the object `triceratopy_webpage` object). The other utility is the dictionary getter, that can get the dicionary value or sub-dictionary from the specified index. Example:
    
     my_dict = {}
-    triceratopy.utils.set_dict_index(my_dict, ("key1","keyr2","key3", "a value"))
-    #my_dict {'key1': {'key2:{'key3: "a value"}}}
+    triceratopy.utils.set_dict_index(my_dict, ('key1', 'key2', 'key3', "a value"))
+    #my_dict {'key1': {'key2: {'key3: 'a value'}}}
     
-    triceratopy.utils.set_dict_index(my_dict, ("key1","keyr2","key4", "another value")) 
-    #would make {'key1': {'key2:{'key3: "a value", 'key4': "another value"}}}
+    triceratopy.utils.set_dict_index(my_dict, ('key1' ,'key2', 'key4', "another value")) 
+    #would make {'key1': {'key2: {'key3: 'a value', 'key4': 'another value'}}}
     
-    print(triceratopy.utils.get_dict_index(my_dict, ("key1", "key2", "key4")
+    print(triceratopy.utils.get_dict_index(my_dict, ('key1', 'key2', 'key4')
     #prints "another value in the console
-    print(triceratopy.utils.get_dict_index(my_dict, ("key1")
-    #prints {'key2': {'key3': 'a value', 'key4': 'another value'
+    print(triceratopy.utils.get_dict_index(my_dict, ('key1')
+    #prints {'key2': {'key3': 'a value', 'key4': 'another value'}}
 **Objects setters and getters**
-Triceratopy also includes the object equivalent of the methods above, they are `set_obj_index` and `get_obj_index`, and work at the same way as the methods shown above, except for the fact that getting a key that contains an object as value will return that object, and not a sub-dictionary.
+Triceratopy also includes the object equivalent of the methods above, they are `set_obj_index` and `get_obj_index`, and work at the same way as the methods shown above, except for the fact that getting a key that contains an object as value will return that object, and not a sub-dictionary. They work exactly like the dict methods.
 
 
