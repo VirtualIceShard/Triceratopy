@@ -6,7 +6,7 @@ class simpleob(object):
 def capsule1 (name=None, capsule=None, exports=None):
     exports.sum = lambda x,y: x + y
     exports.wow = "wow"
-@triceratopy.functions.simple_log
+@triceratopy.function.simple_log
 def say_smth(num, str, add="wow", rlly=3):
     print(num,str,add,rlly)
     return num
@@ -30,8 +30,15 @@ triceratopy.utils.set_obj_index(so, ("wow", "much", "dogee2"), 30)
 print(triceratopy.utils.get_obj_index(so, ("wow", "much", "dogee2")))
 print(so.wow.much.dogee)
 print(so.wow.much.dogee2)
-
-@triceratopy.functions.multiple_calls
+def printargs(f):
+    def wrapper(*args, **kargs):
+        if args:
+            print("args", args)
+        if kargs:
+            print("key args", kargs)
+        return f(*args, **kargs)
+    return wrapper
+@triceratopy.function.multiple_calls
 def sum_nums(a, b):
     print(a, b)
     return a + b
@@ -44,7 +51,16 @@ def wow1(a, b):
 def wow2():
     print("rlly?")
     return 33
-@triceratopy.functions.multiple_calls_list(wow1, wow2)
+@triceratopy.function.multiple_calls_list(wow1, wow2)
 def wow(msg):
     print("wow", msg) 
 print(wow("hello")(5, 7)())
+
+
+@triceratopy.function.thread_execute
+def onetoten(end):
+    for i in range(1, 11):
+        print(i)
+    print(end)
+onetoten("#")
+print("seriously? one to ten?")

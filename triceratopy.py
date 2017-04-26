@@ -16,6 +16,7 @@
  limitations under the License.
 '''
 import time
+import threading
 def capsule(name, description="No description provided",\
       version="0.0.1"):
     def outer_wrapper (f):
@@ -38,8 +39,8 @@ def capsule(name, description="No description provided",\
     return outer_wrapper
 class obj(object):
     pass
-@capsule("functions", description="a collection of function decorators utils", version="0.0.1")
-def functions_capsule(name=None, capsule=None, exports=None):
+@capsule("function", description="a collection of function decorators utils", version="0.0.1")
+def function_capsule(name=None, capsule=None, exports=None):
     def simple_log(f):
         def funcwrapper(*args, **kargs):
             nArgs = args
@@ -94,9 +95,57 @@ def functions_capsule(name=None, capsule=None, exports=None):
                 return ff
             return inner_wrapper
         return outer_wrapper
+    def thread_execute(f):
+        def wrapper(*args, **kargs):
+            ExecuteThread(f, args, kargs).start()
+            return None
+        return wrapper
+    class ExecuteThread(threading.Thread):
+        def __init__(self, f, args, kargs):
+            self.f = f
+            self.args = args
+            self.kargs = kargs
+            threading.Thread.__init__(self)
+        def run(self):
+            self.f(*self.args, **self.kargs)
+    
+    class ThreadExecutorTime (threading.Thread):
+        def __init__(self, f, args, kargs, ms, repeat):
+            self.f = f
+            self.args = args
+            self.kargs = kargs
+            self.ms = ms/1000
+            self.repeat = repeat
+            threading.Thread.__init__(self)
+        def run (self):
+            if self.repeat:
+                while True:
+                    self.f (*self.args, **self.kargs)
+                    time.sleep (self.ms)
+            else:
+                time.sleep (self.ms)
+                self.f (*self.args, **self.kargs)
+    def set_interval(interval):
+        def outer_wrapper (f):
+            def inner_wrapper (*args, **kargs):
+                ThreadExecutorTime (f, args, kargs, interval, True).start ()
+                return None
+            return inner_wrapper
+        return outer_wrapper
+    
+    def set_timeout(interval):
+        def outer_wrapper (f):
+            def inner_wrapper (*args, **kargs):
+                ThreadExecutorTime (f, args, kargs, interval, False).start ()
+                return None
+            return inner_wrapper
+        return outer_wrapper     
     exports.simple_log = simple_log
     exports.multiple_calls = multiple_calls
     exports.multiple_calls_list = multiple_calls_list
+    exports.set_interval = set_interval
+    exports.set_timeout = set_timeout
+    exports.thread_execute = thread_execute
 @capsule("utils", description="utilities to make easier the task of programming", version="0.0.1")
 def utils_capsule(name=None, capsule=None, exports=None):   
     def set_obj_index (objref, index, value, recursive=False, rlist=[]):
@@ -168,11 +217,43 @@ def utils_capsule(name=None, capsule=None, exports=None):
                 return (None, False)
             else:
                 return None
-
+    def flatten (target, show_empty_subdict = False):
+        def flat_array (arr):    
+            arr2 = []
+            for i in arr:
+                if isinstance (i, list) or isinstance (i, tuple):
+                    arr2 += flatten (i)
+                else: 
+                    arr2.append (i)
+            return arr2
+        
+        def flat_tuple (tup):
+            arr2 = []
+            for i in tup:
+                if isinstance (i, list) or isinstance (i, tuple):
+                    arr2 += flatten (i)
+                else:
+                    arr2.append (i)
+            return tuple(arr2)
+        def flat_dict (dic, ses):
+            dic2 = {}
+            for i, v in dic.items ():
+                if isinstance (v, dict) and (bool (v) or not ses):
+                    for j, k in flat_dict (v, ses).items ():
+                        dic2 [j] = k
+                else:        
+                    dic2 [i] = v
+            return dic2
+        if isinstance(target, list):
+            return flat_array(target)
+        elif isinstance (target, tuple):
+            return flat_tuple (target)
+        elif isinstance (target, dict):
+            return flat_dict (target, show_empty_subdict)
     exports.get_obj_index = get_obj_index
     exports.set_obj_index = set_obj_index
     exports.get_dict_index = get_dict_index
     exports.set_dict_index = set_dict_index
-    
-functions = functions_capsule()
+    exports.flatten = flatten
+function = function_capsule()
 utils = utils_capsule()
