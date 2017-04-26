@@ -7,7 +7,7 @@ Triceratopy is a collection of utilities, that includes a variety of decorators 
 - **The use of capsules(_see capsules_) to make code organization easier and create the possibility to separate modules into "sub-modules" _(note: triceratopy uses capsules to store its own functions, organizing them in sections that you will see below)_**
 ### Function decorators
 ##### **simple log**
-Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.
+Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.  
 **Use:** `@triceratopy.function.simple_log`
 Here's an example:
 
@@ -108,7 +108,7 @@ This can be useful if you need to store the values in a path-like structure (exa
     print(triceratopy.utils.get_dict_index(my_dict, ('key1')
     #prints {'key2': {'key3': 'a value', 'key4': 'another value'}}
 **Objects setters and getters**
-Triceratopy also includes the object equivalent of the methods above, they are `set_obj_index` and `get_obj_index`, and work at the same way as the methods shown above, except for the fact that getting a key that contains an object as value will return that object, and not a sub-dictionary. They work exactly like the dict methods.
+Triceratopy also includes the object equivalent of the methods above, they are `set_obj_index` and `get_obj_index`, and work at the same way as the methods shown above, except for the fact that getting a key that contains an object as value will return that object, and not a sub-dictionary. They work exactly like the dict methods.  
 **Use:** `set_obj_index(obj, index, value`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dobj_index(obj, index)`
  
