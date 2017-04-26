@@ -78,7 +78,32 @@ Take a look at this code:
     print(wow("hello")(5, 7)())
 The code above doesn't use return by the fact that the last call returns a tuple containing all the function returns, just like `__return__`. This can be very useful too because you can chain function calls in one line and make easier to call functions that have an order and are related.
 ### Utilities
-
+#### Triceratopy's flatten
+Triceratopy includes a version of the `flatten(list)` method that also supports tuples and vene dictionaries. The function can also make _tuples_ with _lists_ inside or _lists_ with _tuples_ inside into flat _lists_ or _tuples_. Using _flatten_ is simple, because it's used the same way as before:  
+`flatten(list_tuple_or_dict)`  
+  
+_Note: using flatten on dictionaries will ignore empty sub-dicionaries. If you want them to be present, use the key argument `show_empty_subdict = True`_  
+  
+Example of use:  
+  
+    ar = [4, [5, "*"], [7,9, ["+", [90,7], "&",":"]]]
+    print(flatten (ar))
+    #[4, 5, '*', 7, 9, '+', 90, 7, '&', ':']
+    
+    print (flatten ((3, (8, "==", (83)),88)))
+    #(3, 8, '==', 83, 88)
+    
+    print (flatten ((4, "&&", [";;", 4, (69, "&&:"), 99], (5, 8))))
+    #(4, '&&', ';;', 4, 69, '&&:', 99, 5, 8)
+    
+    print (flatten ([4, "::", (8, 9, [";;"])],["^^", 8]))
+    #[4, '::', 8, 9, ';;']
+    print (flatten ({"oww":{"rlt":67, "k":{"foo3":88, "e": {}}}, "n": 990},\
+    show_empty_subdict=True))
+    #{'rlt': 67, 'foo3': 88, 'e': {}, 'n': 990}
+    print (flatten ({"oww":{"rlt":67, "k":{"foo3":88, "e": {}}}, "n": 990}))
+    #{'rlt': 67, 'foo3': 88, 'n': 990}
+___
 #### Dicts and objects setters and getters
 **Dicts setters and getters**
 Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index` and `get_dic_index`.  
