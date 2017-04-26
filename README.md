@@ -7,8 +7,10 @@ Triceratopy is a collection of utilities, that includes a variety of decorators 
 - **The use of capsules(_see capsules_) to make code organization easier and create the possibility to separate modules into "sub-modules" _(note: triceratopy uses capsules to store its own functions, organizing them in sections that you will see below)_**
 ### Function decorators
 ##### **simple log**
-Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.  
+Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.
+    
 **Use:** `@triceratopy.function.simple_log`  
+  
 Here's an example:
 
     @triceratopy.functions.simple_log
@@ -42,7 +44,9 @@ Here's the log:
 ___
 ##### **multiple calls and multiple calls list**
 These two decoratos add a very interesting behavior to the function. The first, `multiple_calls` makes possible to call a function as many times as you want in one line, then you can get the return of all the calls as a _tuple_ by using `__return__`.
+  
 **Use:** `@triceratopy.function.multiple_calls`  
+  
 See below:
 
     @triceratopy.functions.multiple_calls
@@ -63,7 +67,9 @@ Take a look at the log:
     (84, 143)
 The tuples are the return of all the function calls. This method is very useful if you want to run various tests with one function without the need to rewrite it and get all the returns in one tuple.
 The next decorator is `multiple_calls_list`, and it's very interesting too, because it makes to possible to make multiple calls but with different functions. The first function to be called is the decorated one.
+  
 **Use:** `@triceratopy.function.multiple_calls_list(function2, function3)`  
+  
 Take a look at this code:
 
     def wow1(a, b):
@@ -107,8 +113,10 @@ ___
 #### Dicts and objects setters and getters
 **Dicts setters and getters**
 Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index` and `get_dic_index`.  
+  
 **Use:** `set_dict_index(dic, index, value`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dict_index(dict, index)`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dict_index(dict, index)`  
+  
 ##### Examples:
 Dictionary setters and getters make the task of setting unseted sub-values in keys much easier, using recursion to check and create each key with a sub-dictionary value, without the need to create each one of them. The methods to set and get are, respectively: `set_dict_index(dict, index, value` and `get_dic_index(dict, index`.
 ##### Examples: 
@@ -134,7 +142,8 @@ This can be useful if you need to store the values in a path-like structure (exa
     #prints {'key2': {'key3': 'a value', 'key4': 'another value'}}
 **Objects setters and getters**
 Triceratopy also includes the object equivalent of the methods above, they are `set_obj_index` and `get_obj_index`, and work at the same way as the methods shown above, except for the fact that getting a key that contains an object as value will return that object, and not a sub-dictionary. They work exactly like the dict methods.  
-**Use:** `set_obj_index(obj, index, value`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dobj_index(obj, index)`
+**Use:** `set_obj_index(obj, index, value`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dobj_index(obj, index)`  
+  
  
 
