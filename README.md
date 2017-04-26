@@ -1,6 +1,6 @@
 # Triceratopy
 _Currently under development_(*version 0.0.1*)  
-Triceratopy is a collection of utilities, that includes a variety of decorators and functions to make some tasks easier or even to organize your code better. Triceratopy includes:
+Triceratopy is a collection of utilities, that includes a variety of decorators and functions to make some tasks easier or even to organize your code better. Triceratopy includes:  
 - **Function decorator utilities(simple logs, multiple calls in one line, multiple calls sequence, set interval, set timeout)**
 - **Objects and dictionaries setters and getters using an index thats automatically do the work of creating sub-dicionaries and objects**
 - **A multi-use flatten that accepts lists, tuples and dictionaries**
@@ -8,7 +8,7 @@ Triceratopy is a collection of utilities, that includes a variety of decorators 
 ### Function decorators
 ##### **simple log**
 Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.  
-**Use:** `@triceratopy.function.simple_log`
+**Use:** `@triceratopy.function.simple_log`  
 Here's an example:
 
     @triceratopy.functions.simple_log
@@ -42,7 +42,7 @@ Here's the log:
 ___
 ##### **multiple calls and multiple calls list**
 These two decoratos add a very interesting behavior to the function. The first, `multiple_calls` makes possible to call a function as many times as you want in one line, then you can get the return of all the calls as a _tuple_ by using `__return__`.
-**Use:** `@triceratopy.function.multiple_calls`
+**Use:** `@triceratopy.function.multiple_calls`  
 See below:
 
     @triceratopy.functions.multiple_calls
@@ -63,7 +63,7 @@ Take a look at the log:
     (84, 143)
 The tuples are the return of all the function calls. This method is very useful if you want to run various tests with one function without the need to rewrite it and get all the returns in one tuple.
 The next decorator is `multiple_calls_list`, and it's very interesting too, because it makes to possible to make multiple calls but with different functions. The first function to be called is the decorated one.
-**Use:** `@triceratopy.function.multiple_calls_list(function2, function3)`-->
+**Use:** `@triceratopy.function.multiple_calls_list(function2, function3)`  
 Take a look at this code:
 
     def wow1(a, b):
