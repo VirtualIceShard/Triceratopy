@@ -6,7 +6,10 @@ class simpleob(object):
 def capsule1 (name=None, capsule=None, exports=None):
     exports.sum = lambda x,y: x + y
     exports.wow = "wow"
-@triceratopy.function.simple_log
+
+triceratopy.import_from(triceratopy.function, "simple_log", "multiple_calls")
+
+@simple_log
 def say_smth(num, str, add="wow", rlly=3):
     print(num,str,add,rlly)
     return num
@@ -38,7 +41,7 @@ def printargs(f):
             print("key args", kargs)
         return f(*args, **kargs)
     return wrapper
-@triceratopy.function.multiple_calls
+@multiple_calls
 def sum_nums(a, b):
     print(a, b)
     return a + b
@@ -64,3 +67,7 @@ def onetoten(end):
     print(end)
 onetoten("#")
 print("seriously? one to ten?")
+triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
+print(flatten([3, (5, 7, [8])]))
+
+

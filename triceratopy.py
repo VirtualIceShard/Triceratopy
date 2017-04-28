@@ -17,6 +17,8 @@
 '''
 import time
 import threading
+import inspect
+
 def capsule(name, description="No description provided",\
       version="0.0.1"):
     def outer_wrapper (f):
@@ -37,6 +39,20 @@ def capsule(name, description="No description provided",\
             return f.capsule.exports
         return inner_wrapper
     return outer_wrapper
+def import_from(capsule_exports, *args):
+    def check_exists(name, module):
+        try:
+            module.__dict__[a]
+            return True
+        except KeyError:
+            return False
+    for a in args:
+        if not check_exists(a, inspect.getmodule(inspect.stack()[1][0])):
+            for attr, val in capsule_exports.__dict__.items():
+                if attr == a:
+                    inspect.getmodule(inspect.stack()[1][0]).__dict__[a] = val
+        else:
+            print("Already used names. Can't import.")
 class obj(object):
     pass
 @capsule("function", description="a collection of function decorators utils", version="0.0.1")
@@ -140,6 +156,7 @@ def function_capsule(name=None, capsule=None, exports=None):
                 return None
             return inner_wrapper
         return outer_wrapper     
+    exports._name__ = name
     exports.simple_log = simple_log
     exports.multiple_calls = multiple_calls
     exports.multiple_calls_list = multiple_calls_list
@@ -250,6 +267,7 @@ def utils_capsule(name=None, capsule=None, exports=None):
             return flat_tuple (target)
         elif isinstance (target, dict):
             return flat_dict (target, show_empty_subdict)
+    exports._name__ = name
     exports.get_obj_index = get_obj_index
     exports.set_obj_index = set_obj_index
     exports.get_dict_index = get_dict_index

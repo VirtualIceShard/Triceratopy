@@ -145,6 +145,75 @@ Triceratopy also includes the object equivalent of the methods above, they are `
   
 **Use:** `set_obj_index(obj, index, value`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dobj_index(obj, index)`  
+## Capsules
+Triceratopy uses capsules to organize it's code. Capsules are just like objects, but they follow a structure inspired in the _Nodejs_ modules structure. Declaring a capsule is very simple, and using capsules makes your code more organized, also it makes possible to have all organized setions in one module, different from the packages. Capsules are defined as functions, as you can see below (both _description_ and _version_ are optional):
+
+    @triceratopy.capsule(name="MyCapsule", description="optional", version="2.01"
+    def my_capsule(name=None, capsule=None, exports=None):
+    #Very similar to Node.js, but instead of module we have capsule
+        exports.sum_nums = lambda x,y: x + y
+        def wow():
+            print("wow"
+            print("Im impressed!")
+        exports.wow = wow
+        
+#### To get the capsule object just do:
+
+    capsule1 = my_capsule()
+    #Then
+    print(capsule1.sum_ums(3, 9))
+    capsule1.wow()
+    
+### Importing methods and variables from capsule
+If you don't want to use the capsule object reference to call any method or any variable, you can _import_ these elements from the capsule by using `import_from(capsule, "method1", "mehod2, "var1".....)`  
   
+_Note1_: This is different from Python's import, keep in mind that this does not work with `triceratopy.capsule` , for example. The reason is that `capsule` is not inside any capsule, it's inside a module.  
+  
+_Note2_: Your editor may consider an error calling any imported variable or method because they are defined in the runtime, so the editor can't figure out that it's going to be imported, don't worry, it's not an error.  
+  
+_Note 3_: If you still have a variable with the same name as the one that will be imported the import_from will show a warning in the console, and that variable will not be created.  
+  
+#### Examples of use:  
+
+**Importing `flatten` and `set_dict_index`  using `import_from`**
+
+    triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
+    print(flatten([3, (5, 7, [8])]))
+    #[3, 5, 7, 8]
+
+**Importing `multiple_calls` and `simple_log`**
+
+    triceratopy.import_from(triceratopy.function, "simple_log", "multiple_calls")
+
+    @simple_log
+    def say_smth(num, str, add="wow", rlly=3):
+        print(num,str,add,rlly)
+        return num
+    say_smth(3,"hey", rlly=55)
+    
+    """
+    [10:36]Calling say_smth(3,hey,rlly=55)
+    [10:36]Started running
+    3 hey wow 55
+    [10:36]Ended
+    [10:36]Returned: 3
+    """
+    @multiple_calls
+    def sum_nums(a, b):
+        print(a, b)
+        return a + b
+    print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45).__return__)
+    
+    """
+    30
+    3
+    30
+    3 5
+    5 8
+    8 90
+    50 45
+    (8, 13, 98, 95)
+    """
+    
  
 
