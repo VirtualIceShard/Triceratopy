@@ -4,8 +4,8 @@ Triceratopy is a collection of utilities, that includes a variety of decorators 
 - **Function decorator utilities(simple logs, multiple calls in one line, multiple calls sequence, set interval, set timeout)**
 - **Objects and dictionaries setters and getters using an index thats automatically do the work of creating sub-dicionaries and objects**
 - **A multi-use flatten that accepts lists, tuples and dictionaries**
-- **The use of capsules(_see capsules_) to make code organization easier and create the possibility to separate modules into "sub-modules" _(note: triceratopy uses capsules to store its own functions, organizing them in sections that you will see below)_**
-### Function decorators
+- **The use of capsules(_see capsules_) to make code organization easier and create the possibility to separate modules into "sub-modules" _(triceratopy uses capsules to store its own functions, organizing them in sections that you will see below)_**
+### Function decorators (triceratopy.function)
 ##### **simple log**
 Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.
     
@@ -83,7 +83,7 @@ Take a look at this code:
         print("wow", msg) 
     print(wow("hello")(5, 7)())
 The code above doesn't use return by the fact that the last call returns a tuple containing all the function returns, just like `__return__`. This can be very useful too because you can chain function calls in one line and make easier to call functions that have an order and are related.
-### Utilities
+### Utilities (triceratopy.utils)
 #### Triceratopy's flatten
 Triceratopy includes a version of the `flatten(list)` method that also supports tuples and vene dictionaries. The function can also make _tuples_ with _lists_ inside or _lists_ with _tuples_ inside into flat _lists_ or _tuples_. Using _flatten_ is simple, because it's used the same way as before:  
 `flatten(list_tuple_or_dict)`  
