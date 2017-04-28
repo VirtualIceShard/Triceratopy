@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Below you can see the uses of Triceratopy
+"""
 import triceratopy
 class simpleob(object):
     pass
@@ -70,5 +73,6 @@ print("seriously? one to ten?")
 triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
 print(flatten([3, (5, 7, [8])]))
 print(triceratopy.utils.__info__)
+
 
 
