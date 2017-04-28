@@ -36,6 +36,7 @@ def capsule(name, description="No description provided",\
             f.capsule = capsule_return(name, description, version)
             f.capsule.exports = exports_return ()
             f (name=name, capsule=f.capsule, exports=f.capsule.exports)
+            f.capsule.exports.__info__ = {"name": name, "description": description, "varsion": version}
             return f.capsule.exports
         return inner_wrapper
     return outer_wrapper

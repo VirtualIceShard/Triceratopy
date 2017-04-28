@@ -145,10 +145,11 @@ Triceratopy also includes the object equivalent of the methods above, they are `
   
 **Use:** `set_obj_index(obj, index, value`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dobj_index(obj, index)`  
+___
 ## Capsules
 Triceratopy uses capsules to organize it's code. Capsules are just like objects, but they follow a structure inspired in the _Nodejs_ modules structure. Declaring a capsule is very simple, and using capsules makes your code more organized, also it makes possible to have all organized setions in one module, different from the packages. Capsules are defined as functions, as you can see below (both _description_ and _version_ are optional):
 
-    @triceratopy.capsule(name="MyCapsule", description="optional", version="2.01"
+    @triceratopy.capsule(name="MyCapsule", description="optional", version="2.01")
     def my_capsule(name=None, capsule=None, exports=None):
     #Very similar to Node.js, but instead of module we have capsule
         exports.sum_nums = lambda x,y: x + y
@@ -162,8 +163,16 @@ Triceratopy uses capsules to organize it's code. Capsules are just like objects,
     capsule1 = my_capsule()
     #Then
     print(capsule1.sum_ums(3, 9))
+    #12
     capsule1.wow()
+    #wow
+    #Im impressed
+
+_Note_: Capsules export by default the variable `__info__`, that is a dicitonary containing the capsule's name, version and description.
     
+    print(capsule1.__info__)
+    #{'name': 'MyCapsule', 'description': 'optional', 'version': '2.01'}
+
 ### Importing methods and variables from capsule
 If you don't want to use the capsule object reference to call any method or any variable, you can _import_ these elements from the capsule by using `import_from(capsule, "method1", "mehod2, "var1".....)`  
   

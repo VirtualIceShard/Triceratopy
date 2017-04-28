@@ -69,5 +69,6 @@ onetoten("#")
 print("seriously? one to ten?")
 triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
 print(flatten([3, (5, 7, [8])]))
+print(triceratopy.utils.__info__)
 
 
