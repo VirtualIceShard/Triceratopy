@@ -43,7 +43,7 @@ Here's the log:
     [17:11]Returned: 23
 ___
 ##### **multiple calls and multiple calls list**
-These two decoratos add a very interesting behavior to the function. The first, `multiple_calls` makes possible to call a function as many times as you want in one line, then you can get the return of all the calls as a _tuple_ by using `__return__`.
+These two decoratos add a very interesting behavior to the function. The first, `multiple_calls` makes possible to call a function as many times as you want in one line, then you can get the return of all the calls as a _tuple_ by using `_return`.
   
 **Use:** `@triceratopy.function.multiple_calls`  
   
@@ -53,8 +53,8 @@ See below:
     def sum_nums(a, b):
         print(a, b)
         return a + b
-    print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45).__return__)
-    print(sum_nums(33, 51)(59, 84).__return__)
+    print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45)._return)
+    print(sum_nums(33, 51)(59, 84)._return)
 Take a look at the log:
 
     3 5
@@ -82,7 +82,7 @@ Take a look at this code:
     def wow(msg):
         print("wow", msg) 
     print(wow("hello")(5, 7)())
-The code above doesn't use return by the fact that the last call returns a tuple containing all the function returns, just like `__return__`. This can be very useful too because you can chain function calls in one line and make easier to call functions that have an order and are related.
+The code above doesn't use return by the fact that the last call returns a tuple containing all the function returns, just like `_return`. This can be very useful too because you can chain function calls in one line and make easier to call functions that have an order and are related.
 ### Utilities (triceratopy.utils)
 #### Triceratopy's flatten
 Triceratopy includes a version of the `flatten(list)` method that also supports tuples and vene dictionaries. The function can also make _tuples_ with _lists_ inside or _lists_ with _tuples_ inside into flat _lists_ or _tuples_. Using _flatten_ is simple, because it's used the same way as before:  
@@ -211,7 +211,7 @@ _Note 3_: If you still have a variable with the same name as the one that will b
     def sum_nums(a, b):
         print(a, b)
         return a + b
-    print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45).__return__)
+    print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45)._return)
     
     """
     30

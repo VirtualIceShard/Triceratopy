@@ -85,11 +85,11 @@ def function_capsule(name=None, capsule=None, exports=None):
         def wrapper(*args, **kargs):
             func = f
             def ff(*args1, **kargs1):
-                ff.__return__ = list(ff.__return__)
-                ff.__return__.append(func(*args1, **kargs1))
-                ff.__return__ = tuple(ff.__return__)
+                ff._return = list(ff._return)
+                ff._return.append(func(*args1, **kargs1))
+                ff._return = tuple(ff._return)
                 return ff
-            ff.__return__ = ()
+            ff._return = ()
             ff(*args, **kargs)
             return ff
         return wrapper
@@ -98,16 +98,16 @@ def function_capsule(name=None, capsule=None, exports=None):
             def inner_wrapper(*args, **kargs):
                 func = f
                 def ff(*args1, **kargs1):
-                    ff.__return__ = list(ff.__return__)
-                    ff.__return__.append(ff.__nextf__[0](*args1, **kargs1))
-                    ff.__return__ = tuple(ff.__return__)
+                    ff._return = list(ff._return)
+                    ff._return.append(ff.__nextf__[0](*args1, **kargs1))
+                    ff._return = tuple(ff._return)
                     if len(ff.__nextf__) > 1:
                         ff.__nextf__.pop(0)
                     else:
-                        return ff.__return__
+                        return ff._return
                     return ff
                 ff.__nextf__ =  [f] + list(f_args)
-                ff.__return__ = ()
+                ff._return = ()
                 ff(*args, **kargs)
                 return ff
             return inner_wrapper

@@ -48,8 +48,8 @@ def printargs(f):
 def sum_nums(a, b):
     print(a, b)
     return a + b
-print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45).__return__)
-print(sum_nums(33, 51)(59, 84).__return__)
+print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45)._return)
+print(sum_nums(33, 51)(59, 84)._return)
 
 def wow1(a, b):
     print(a, b)
