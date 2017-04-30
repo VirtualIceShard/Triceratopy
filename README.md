@@ -176,15 +176,15 @@ _Note_: Capsules export by default the variable `__info__`, that is a dicitonary
 ### Importing methods and variables from capsule
 If you don't want to use the capsule object reference to call any method or any variable, you can _import_ these elements from the capsule by using `import_from(capsule, "method1", "mehod2, "var1".....)`  
   
-_Note1_: This is different from Python's import, keep in mind that this does not work with `triceratopy.capsule` , for example. The reason is that `capsule` is not inside any capsule, it's inside a module.  
+_Note 1_: This is different from Python's import, keep in mind that this does not work with `triceratopy.capsule` , for example. The reason is that `capsule` is not inside any capsule, it's inside a module.  
   
-_Note2_: Your editor may consider an error calling any imported variable or method because they are defined in the runtime, so the editor can't figure out that it's going to be imported, don't worry, it's not an error.  
+**_Note 2_: Your editor may consider an error calling any imported variable or method because they are defined in the runtime, so the editor can't figure out that it's going to be imported, don't worry, it's not an error.** 
   
 _Note 3_: If you still have a variable with the same name as the one that will be imported the import_from will show a warning in the console, and that variable will not be created.  
   
 #### Examples of use:  
 
-**Importing `flatten` and `set_dict_index`  using `import_from`**
+**Importing `flatten` and `set_dict_index` using `import_from`**
 
     triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
     print(flatten([3, (5, 7, [8])]))
@@ -223,6 +223,5 @@ _Note 3_: If you still have a variable with the same name as the one that will b
     50 45
     (8, 13, 98, 95)
     """
-    
- 
+
 
