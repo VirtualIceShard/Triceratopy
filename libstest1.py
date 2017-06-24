@@ -73,6 +73,22 @@ print("seriously? one to ten?")
 triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
 print(flatten([3, (5, 7, [8])]))
 print(triceratopy.utils.__info__)
+kvpd = triceratopy.utils.dict_keyval_str("wow=3;  heynow=imarockstar;")
+print(kvpd)
+kvp_file = triceratopy.utils.dict_keyval_config("test_keyval.config")
+print(kvp_file)
 
-
-
+def cmd_help(args, out=None, objs=None):
+    if args:
+        out.write("Displaying help for: " + args[0] + "\n")
+        return "Success"
+    else:
+        out.write("Usage: help [command]\n")
+        return "Needs one arg, use shown"
+cmd_console = triceratopy.pyezcmd.PyEzCmdConsole(prefix="!")
+cmd_console.add_cmd("help", cmd_help, min_args=0, max_args=1)
+print(cmd_console.cmd("!help make")[1])
+print(cmd_console.cmd("!help")[1])
+print(cmd_console.cmd("!help make do")[1])
+print(cmd_console.cmd("!hel")[1])
+print(cmd_console.cmd("help")[1])

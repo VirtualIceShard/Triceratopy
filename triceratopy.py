@@ -18,6 +18,7 @@
 import time
 import threading
 import inspect
+import sys
 
 def capsule(name, description="No description provided",\
       version="0.0.1"):
@@ -268,11 +269,82 @@ def utils_capsule(name=None, capsule=None, exports=None):
             return flat_tuple (target)
         elif isinstance (target, dict):
             return flat_dict (target, show_empty_subdict)
+    def dict_keyval_str(kvpstr, equals="=", val_end=";", strip=True, replace_newline=True):
+        ret = {}
+        if replace_newline:
+            kvpstr = kvpstr.replace("\n", "")
+        kv_pairs = kvpstr.split(val_end)
+        for kvp in kv_pairs:
+            if kvp:
+                if strip:
+                    k, v = list(map(lambda x: x.strip(), kvp.strip().split(equals)))
+                else:
+                    k, v = list(map(lambda x: x.strip(), kvp.split(equals)))
+                ret[k] = v
+        return ret
+    def dict_keyval_config(configf, equals="=", val_end=";", strip=True):
+        cflines = []
+        with open(configf) as cfile:
+            flines = cfile.read().split("\n")
+            for fl in flines:
+                if not fl.startswith(val_end):
+                    cflines.append(fl)
+        return dict_keyval_str("".join(cflines), equals=equals, val_end=val_end, strip=strip)
     exports._name__ = name
     exports.get_obj_index = get_obj_index
     exports.set_obj_index = set_obj_index
     exports.get_dict_index = get_dict_index
     exports.set_dict_index = set_dict_index
     exports.flatten = flatten
+    exports.dict_keyval_str = dict_keyval_str
+    exports.dict_keyval_config = dict_keyval_config
+@capsule("pycmd", description="Command utilities to make easier create commands inside a python program",\
+         version="0.0.1")
+def pyezcmd_capsule(name=None, capsule=None, exports=None):
+    class  PyEzCmdConsole(object):
+        def __init__(self, out=sys.stdout, prefix=""):
+            self.cmds = {}
+            self.out = out
+            self.prefix = prefix
+        def cmd(self, cmdstr, objs=None):
+            args = cmdstr.split(" ")[1:]
+            if self.prefix:
+                try:
+                    cmds = cmdstr.split(" ")[0].split(self.prefix)[1]
+                except IndexError:
+                    return (False, "Invalid prefix!")
+            else:
+                cmds = cmdstr.split(" ")[0]
+            try:
+                cmdob = self.cmds[cmds]
+            except KeyError:
+                return (False, "Command not found!")
+            if len(args) < cmdob.min_args:
+                return (False, "Args below min args: " )
+            if not cmdob.inf_params:
+                if len(args) > cmdob.max_args:
+                    return (False, "Args above max args")
+            return (True,  cmdob.cmdf(args, out=self.out, objs=objs))
+        def add_cmd(self, word, cmdf, min_args=0, max_args=-1):
+            try:
+                self.cmds[word]
+            except KeyError:
+                self.cmds[word] = self.PyEzCmdCommand(word, cmdf, min_args=min_args,\
+                                                 max_args=max_args)
+                return True
+            return False
+        class PyEzCmdCommand(object):
+            def __init__(self, word, cmdf, min_args=0, max_args=-1):
+                self.cmdf = cmdf
+                self.min_args = min_args
+                self.max_args = max_args
+                if max_args == -1:
+                    self.inf_params = True
+                else:
+                    self.inf_params = False
+            
+    exports.PyEzCmdConsole = PyEzCmdConsole
+   
 function = function_capsule()
 utils = utils_capsule()
+pyezcmd = pyezcmd_capsule()
