@@ -320,11 +320,11 @@ def pyezcmd_capsule(name=None, capsule=None, exports=None):
             except KeyError:
                 return (False, "Command not found!")
             if len(args) < cmdob.min_args:
-                return (False, "Args below min args: " )
+                return (False, "Args below min args: " + str(len(args)))
             if not cmdob.inf_params:
                 if len(args) > cmdob.max_args:
-                    return (False, "Args above max args")
-            return (True,  cmdob.cmdf(args, out=self.out, objs=objs))
+                    return (False, "Args above max args: " + str(len(args)))
+            return (True,  cmdob.cmdf(tuple(args), out=self.out, objs=objs))
         def add_cmd(self, word, cmdf, min_args=0, max_args=-1):
             try:
                 self.cmds[word]

@@ -1,5 +1,5 @@
 # Triceratopy
-_Currently under development_(*version 0.1.0*)  
+_Currently under development_ (*version 0.1.0*)  
 Triceratopy is a collection of utilities, that includes a variety of decorators and functions to make some tasks easier or even to organize your code better. Triceratopy includes:  
 - **Function decorator utilities(simple logs, multiple calls in one line, multiple calls sequence, set interval, set timeout)**
 - **Objects and dictionaries setters and getters using an index thats automatically do the work of creating sub-dicionaries and objects**
@@ -223,5 +223,50 @@ _Note 3_: If you still have a variable with the same name as the one that will b
     50 45
     (8, 13, 98, 95)
     """
+### PyEzCmd (triceratopy.pyezcmd)
+*PyEzCmd* is a capsule that contains the `PyEzCmdConsole` class to help building simple consoles in an easy way. *PyEzCmd* can be used to create bots or simple command line programs.
+##### Creating the console
+To create a *PyEzCmd* console, you just need to invoke `PyEzCmdConsole()`, which has 2 key arguments: `out` and `prefix`. The key argument named `out` is the output stream used by the command to write, and has `sys.stdout` as default value. The other argument `prefix`, is the prefix used in your commands, and has an empty string as default value.
+
+Example of console creating:
+
+    import triceratopy
+    my_console = triceratopy.pyezcmd.PyEzCmdConsole(prefix="!")
+
+##### Creating commands for the console
+To create a command for the console, you need to have a function that represents the command, just like this:
+
+    def cmd_help(args, out=None, objs=None):
+    if args:
+        out.write("Displaying help for: " + args[0] + "\n")
+        return "Success"
+    else:
+        out.write("Usage: help [command]\n")
+        return "Needs one arg, use shown"
+        
+The command must return a message when it's called. The first argument is a tuple containing the arguments for that command. There's a key argument called `objs` too, which can contain a list of objects needed to be passed to the command function (like an object representing the who ran the command).
+After creating the function, you need a word representing the command, like *help* or *print*. When calling the command, the user will need to type *prefix* + *word* to call the command. There's 2 other optional arguments, `min_args` and `max_args`, these two are the limit of arguments that the command will have. If you want infinite args set `max_args` to *-1*.
+
+
+To creating a new command, invoke `add_cmd` on the *PyEzCmdCOnsole* object.  
+Example:
+    
+    cmd_console.add_cmd("help", cmd_help, min_args=0, max_args=1)
+
+If thres's another command using the same word, the funciton will return `False`.
+##### Calling the command
+Calling the command is very simple, you just need to invoke `cmd()` on the *PyEzCmdCOnsole* object. The arguments of the function are `cmdstr` and `objs`. The fisrt is the whole command line, containing the prefix, word, and arguments, which will be split by the funcion. The second was explained before, and is optional, with default value to `None`. The function will return a tuple with a length of 2. The first item can be `True`, if everything went ok, or `False`, if an error ocurred. Possible erros can be the number of arguments or the inexistent word on the commands. The second item will be the error message or a message returned by the command function.  
+Example of use:
+
+    print(cmd_console.cmd("!help make")[1])
+    #Success (function command was called)
+    print(cmd_console.cmd("!help")[1])
+    #Needs one arg, use shown (function command was called)
+    print(cmd_console.cmd("!help make do")[1])
+    #Args above max args: 2 (error)
+    print(cmd_console.cmd("!hel")[1])
+    #Command not found! (error)
+    print(cmd_console.cmd("help")[1])
+    #Invalid prefix! (error)
 
 
