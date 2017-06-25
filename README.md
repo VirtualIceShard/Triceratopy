@@ -5,15 +5,15 @@ Triceratopy is a collection of utilities, that includes a variety of decorators 
 - **Objects and dictionaries setters and getters using an index thats automatically do the work of creating sub-dicionaries and objects**
 - **A multi-use flatten that accepts lists, tuples and dictionaries**
 - **The use of capsules(_see capsules_) to make code organization easier and create the possibility to separate modules into "sub-modules" _(triceratopy uses capsules to store its own functions, organizing them in sections that you will see below)_**
-### Function decorators (triceratopy.function)
+### Function decorators (triceratopy.functiond)
 ##### **simple log**
 Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.
     
-**Use:** `@triceratopy.function.simple_log`  
+**Use:** `@triceratopy.functiond.simple_log`  
   
 Here's an example:
 
-    @triceratopy.functions.simple_log
+    @triceratopy.functionds.simple_log
     def say_smth(num, str, add="wow", add2=3):
         print(num,str,add,add2)
         return num
@@ -45,11 +45,11 @@ ___
 ##### **multiple calls and multiple calls list**
 These two decoratos add a very interesting behavior to the function. The first, `multiple_calls` makes possible to call a function as many times as you want in one line, then you can get the return of all the calls as a _tuple_ by using `_return`.
   
-**Use:** `@triceratopy.function.multiple_calls`  
+**Use:** `@triceratopy.functiond.multiple_calls`  
   
 See below:
 
-    @triceratopy.functions.multiple_calls
+    @triceratopy.functionds.multiple_calls
     def sum_nums(a, b):
         print(a, b)
         return a + b
@@ -68,7 +68,7 @@ Take a look at the log:
 The tuples are the return of all the function calls. This method is very useful if you want to run various tests with one function without the need to rewrite it and get all the returns in one tuple.
 The next decorator is `multiple_calls_list`, and it's very interesting too, because it makes to possible to make multiple calls but with different functions. The first function to be called is the decorated one.
   
-**Use:** `@triceratopy.function.multiple_calls_list(function2, function3)`  
+**Use:** `@triceratopy.functiond.multiple_calls_list(function2, function3)`  
   
 Take a look at this code:
 
@@ -78,7 +78,7 @@ Take a look at this code:
     def wow2():
         print("rlly?")
         return 33
-    @triceratopy.functions.multiple_calls_list(wow1, wow2)
+    @triceratopy.functionds.multiple_calls_list(wow1, wow2)
     def wow(msg):
         print("wow", msg) 
     print(wow("hello")(5, 7)())
@@ -192,7 +192,7 @@ _Note 3_: If you still have a variable with the same name as the one that will b
 
 **Importing `multiple_calls` and `simple_log`**
 
-    triceratopy.import_from(triceratopy.function, "simple_log", "multiple_calls")
+    triceratopy.import_from(triceratopy.functiond, "simple_log", "multiple_calls")
 
     @simple_log
     def say_smth(num, str, add="wow", rlly=3):

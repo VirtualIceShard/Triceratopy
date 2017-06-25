@@ -10,7 +10,7 @@ def capsule1 (name=None, capsule=None, exports=None):
     exports.sum = lambda x,y: x + y
     exports.wow = "wow"
 
-triceratopy.import_from(triceratopy.function, "simple_log", "multiple_calls")
+triceratopy.import_from(triceratopy.functiond, "simple_log", "multiple_calls")
 
 @simple_log
 def say_smth(num, str, add="wow", rlly=3):
@@ -57,13 +57,13 @@ def wow1(a, b):
 def wow2():
     print("rlly?")
     return 33
-@triceratopy.function.multiple_calls_list(wow1, wow2)
+@triceratopy.functiond.multiple_calls_list(wow1, wow2)
 def wow(msg):
     print("wow", msg) 
 print(wow("hello")(5, 7)())
 
 
-@triceratopy.function.thread_execute
+@triceratopy.functiond.thread_execute
 def onetoten(end):
     for i in range(1, 11):
         print(i)

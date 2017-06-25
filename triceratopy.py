@@ -57,8 +57,8 @@ def import_from(capsule_exports, *args):
             print("Already used names. Can't import.")
 class obj(object):
     pass
-@capsule("function", description="a collection of function decorators utils", version="0.0.1")
-def function_capsule(name=None, capsule=None, exports=None):
+@capsule("functiond", description="a collection of function decorators utils", version="0.0.1")
+def functiond_capsule(name=None, capsule=None, exports=None):
     def simple_log(f):
         def funcwrapper(*args, **kargs):
             nArgs = args
@@ -345,6 +345,6 @@ def pyezcmd_capsule(name=None, capsule=None, exports=None):
             
     exports.PyEzCmdConsole = PyEzCmdConsole
    
-function = function_capsule()
+functiond = functiond_capsule()
 utils = utils_capsule()
 pyezcmd = pyezcmd_capsule()
