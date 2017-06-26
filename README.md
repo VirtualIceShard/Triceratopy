@@ -4,7 +4,6 @@ Triceratopy is a collection of utilities, that includes a variety of decorators 
 - **Function decorator utilities(simple logs, multiple calls in one line, multiple calls sequence, set interval, set timeout)**
 - **Objects and dictionaries setters and getters using an index thats automatically do the work of creating sub-dicionaries and objects**
 - **A multi-use flatten that accepts lists, tuples and dictionaries**
-- **The use of capsules(_see capsules_) to make code organization easier and create the possibility to separate modules into "sub-modules" _(triceratopy uses capsules to store its own functions, organizing them in sections that you will see below)_**
 ### Function decorators (triceratopy.functiond)
 ##### **simple log**
 Triceratopy contains a decorator to simple function logging, it's called *simple log*. This decorator returns the fucntion arguments, the execution start and end time and the return, simple informations that are very useful when you need to log something simple and less complex.
@@ -14,33 +13,30 @@ Triceratopy contains a decorator to simple function logging, it's called *simple
 Here's an example:
 
     @triceratopy.functionds.simple_log
-    def say_smth(num, str, add="wow", add2=3):
-        print(num,str,add,add2)
+    def say_smth(num, strng, add="wow", add2=3):
+        print(num,strng,add,add2)
         return num
-    cps1 = capsule1()
-    print(cps1.sum(3,8))
-    print(cps1.wow)
     say_smth(3,"hey", add2=55)
     say_smth(34,"nop")
     say_smth(23, "uhu", add="hah", add="rly?")
 
 Here's the log:
 
-    [17:11]Calling say_smth(3,hey,add2=55)
-    [17:11]Started running
-    3 hey wow 55
-    [17:11]Ended
-    [17:11]Returned: 3
-    [17:11]Calling say_smth(34,nop)
-    [17:11]Started running
-    34 nop wow 3
-    [17:11]Ended
-    [17:11]Returned: 34
-    [17:11]Calling say_smth(23,uhu,add='hah',add2='rly?')
-    [17:11]Started running
-    23 uhu hah rly?
-    [17:11]Ended
-    [17:11]Returned: 23
+	[17:51]Calling say_smth(3,"hey",rlly=55)
+	[17:51]Started running
+	3 hey wow 55
+	[17:51]Ended
+	[17:51]Returned: 3
+	[17:51]Calling say_smth(34,"nop")
+	[17:51]Started running
+	34 nop wow 3
+	[17:51]Ended
+	[17:51]Returned: 34
+	[17:51]Calling say_smth(23,"uhu","add='hah'","rlly='rly?'")
+	[17:51]Started running
+	23 uhu hah rly?
+	[17:51]Ended
+	[17:51]Returned: 23
 ___
 ##### **multiple calls and multiple calls list**
 These two decoratos add a very interesting behavior to the function. The first, `multiple_calls` makes possible to call a function as many times as you want in one line, then you can get the return of all the calls as a _tuple_ by using `_return`.
@@ -146,85 +142,9 @@ Triceratopy also includes the object equivalent of the methods above, they are `
 **Use:** `set_obj_index(obj, index, value`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`get_dobj_index(obj, index)`  
 ___
-## Capsules
-Triceratopy uses capsules to organize it's code. Capsules are just like objects, but they follow a structure inspired in the _Nodejs_ modules structure. Declaring a capsule is very simple, and using capsules makes your code more organized, also it makes possible to have all organized setions in one module, different from the packages. Capsules are defined as functions, as you can see below (both _description_ and _version_ are optional):
 
-    @triceratopy.capsule(name="MyCapsule", description="optional", version="2.01")
-    def my_capsule(name=None, capsule=None, exports=None):
-    #Very similar to Node.js, but instead of module we have capsule
-        exports.sum_nums = lambda x,y: x + y
-        def wow():
-            print("wow"
-            print("Im impressed!")
-        exports.wow = wow
-        
-#### To get the capsule object just do:
-
-    capsule1 = my_capsule()
-    #Then
-    print(capsule1.sum_ums(3, 9))
-    #12
-    capsule1.wow()
-    #wow
-    #Im impressed
-
-_Note_: Capsules export by default the variable `__info__`, that is a dicitonary containing the capsule's name, version and description.
-    
-    print(capsule1.__info__)
-    #{'name': 'MyCapsule', 'description': 'optional', 'version': '2.01'}
-
-### Importing methods and variables from capsule
-If you don't want to use the capsule object reference to call any method or any variable, you can _import_ these elements from the capsule by using `import_from(capsule, "method1", "mehod2, "var1".....)`  
-  
-_Note 1_: This is different from Python's import, keep in mind that this does not work with `triceratopy.capsule` , for example. The reason is that `capsule` is not inside any capsule, it's inside a module.  
-  
-**_Note 2_: Your editor may consider an error calling any imported variable or method because they are defined in the runtime, so the editor can't figure out that it's going to be imported, don't worry, it's not an error.** 
-  
-_Note 3_: If you still have a variable with the same name as the one that will be imported the import_from will show a warning in the console, and that variable will not be created.  
-  
-#### Examples of use:  
-
-**Importing `flatten` and `set_dict_index` using `import_from`**
-
-    triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
-    print(flatten([3, (5, 7, [8])]))
-    #[3, 5, 7, 8]
-
-**Importing `multiple_calls` and `simple_log`**
-
-    triceratopy.import_from(triceratopy.functiond, "simple_log", "multiple_calls")
-
-    @simple_log
-    def say_smth(num, str, add="wow", rlly=3):
-        print(num,str,add,rlly)
-        return num
-    say_smth(3,"hey", rlly=55)
-    
-    """
-    [10:36]Calling say_smth(3,hey,rlly=55)
-    [10:36]Started running
-    3 hey wow 55
-    [10:36]Ended
-    [10:36]Returned: 3
-    """
-    @multiple_calls
-    def sum_nums(a, b):
-        print(a, b)
-        return a + b
-    print(sum_nums(3, 5)(5, 8)(8, 90)(50, 45)._return)
-    
-    """
-    30
-    3
-    30
-    3 5
-    5 8
-    8 90
-    50 45
-    (8, 13, 98, 95)
-    """
 ### PyEzCmd (triceratopy.pyezcmd)
-*PyEzCmd* is a capsule that contains the `PyEzCmdConsole` class to help building simple consoles in an easy way. *PyEzCmd* can be used to create bots or simple command line programs.
+*PyEzCmd* is a module that contains the `PyEzCmdConsole` class to help building simple consoles in an easy way. *PyEzCmd* can be used to create bots or simple command line programs.
 ##### Creating the console
 To create a *PyEzCmd* console, you just need to invoke `PyEzCmdConsole()`, which has 2 key arguments: `out` and `prefix`. The key argument named `out` is the output stream used by the command to write, and has `sys.stdout` as default value. The other argument `prefix`, is the prefix used in your commands, and has an empty string as default value.
 

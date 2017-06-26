@@ -2,23 +2,15 @@
 """
 Below you can see the uses of Triceratopy
 """
-import triceratopy
-class simpleob(object):
-    pass
-@triceratopy.capsule("wow")
-def capsule1 (name=None, capsule=None, exports=None):
-    exports.sum = lambda x,y: x + y
-    exports.wow = "wow"
+import triceratopy.utils
+import triceratopy.functiond
+import triceratopy.pyezcmd
 
-triceratopy.import_from(triceratopy.functiond, "simple_log", "multiple_calls")
 
-@simple_log
-def say_smth(num, str, add="wow", rlly=3):
-    print(num,str,add,rlly)
+@triceratopy.functiond.simple_log
+def say_smth(num, strng, add="wow", rlly=3):
+    print(num,strng,add,rlly)
     return num
-cps1 = capsule1()
-print(cps1.sum(3,8))
-print(cps1.wow)
 say_smth(3,"hey", rlly=55)
 say_smth(34,"nop")
 say_smth(23, "uhu", add="hah", rlly="rly?")
@@ -30,7 +22,7 @@ triceratopy.utils.set_dict_index(simple_dict, ["wow", "much", "doge3", "doge4","
 print(triceratopy.utils.get_dict_index(simple_dict, ["wow"]))
 print(triceratopy.utils.get_dict_index(simple_dict, ("wow", "much", "doge3", "doge4","doge6"))(5))
 print(simple_dict)
-so = simpleob()
+so = triceratopy.utils.obj()
 triceratopy.utils.set_obj_index(so, ("wow", "much", "dogee"), 3)
 triceratopy.utils.set_obj_index(so, ("wow", "much", "dogee2"), 30)
 print(triceratopy.utils.get_obj_index(so, ("wow", "much", "dogee2")))
@@ -44,7 +36,7 @@ def printargs(f):
             print("key args", kargs)
         return f(*args, **kargs)
     return wrapper
-@multiple_calls
+@triceratopy.functiond.multiple_calls
 def sum_nums(a, b):
     print(a, b)
     return a + b
@@ -70,9 +62,7 @@ def onetoten(end):
     print(end)
 onetoten("#")
 print("seriously? one to ten?")
-triceratopy.import_from(triceratopy.utils, "flatten", "set_dict_index")
-print(flatten([3, (5, 7, [8])]))
-print(triceratopy.utils.__info__)
+print(triceratopy.utils.flatten([3, (5, 7, [8])]))
 kvpd = triceratopy.utils.dict_keyval_str("wow=3;  heynow=imarockstar;")
 print(kvpd)
 kvp_file = triceratopy.utils.dict_keyval_config("test_keyval.config")
