@@ -12,7 +12,7 @@ Triceratopy contains a decorator to simple function logging, it's called *simple
   
 Here's an example:
 
-    @triceratopy.functionds.simple_log
+    @triceratopy.functiond.simple_log
     def say_smth(num, strng, add="wow", add2=3):
         print(num,strng,add,add2)
         return num
